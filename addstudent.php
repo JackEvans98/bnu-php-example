@@ -15,17 +15,18 @@ if (isset($_SESSION['id'])) {
    if (isset($_POST['submit'])) {
 
       // build an sql statment to update the student details
-      $sql = "INSERT INTO student ='" . $_POST['txtfirstname'] . "',";
+      $sql = "insert into student set studentid ='" . $_POST['txtstudentid'] . "',";
+      $sql .= "dob ='" . $_POST['txtdob'] . "',";
+      $sql .= "firstname ='" . $_POST['txtfirstname'] . "',";
       $sql .= "lastname ='" . $_POST['txtlastname']  . "',";
       $sql .= "house ='" . $_POST['txthouse']  . "',";
       $sql .= "town ='" . $_POST['txttown']  . "',";
       $sql .= "county ='" . $_POST['txtcounty']  . "',";
       $sql .= "country ='" . $_POST['txtcountry']  . "',";
-      $sql .= "postcode ='" . $_POST['txtpostcode']  . "' ";
-      $sql .= "where studentid = '" . $_SESSION['id'] . "';";
+      $sql .= "postcode ='" . $_POST['txtpostcode']  . "';";
       $result = mysqli_query($conn,$sql);
 
-      $data['content'] = "<p>Your details have been updated</p>";
+      $data['content'] = "<p>Student has been added</p>";
 
    }
    else {
@@ -40,23 +41,27 @@ if (isset($_SESSION['id'])) {
       // also http://stackoverflow.com/questions/8280360/formatting-an-array-value-inside-a-heredoc
       $data['content'] = <<<EOD
 
-   <h2>My Details</h2>
+   <h2>Add Student</h2>
    <form name="frmdetails" action="" method="post">
+   Student ID :
+   <input name="txtstudentid" type="text" /><br/>
+   Date of Birth (yyyy-mm-dd) :
+   <input name="txtdob" type="text" /><br/>
    First Name :
-   <input name="txtfirstname" type="text" value="{$row['firstname']}" /><br/>
-   Surname :
-   <input name="txtlastname" type="text"  value="{$row['lastname']}" /><br/>
-   Number and Street :
-   <input name="txthouse" type="text"  value="{$row['house']}" /><br/>
+   <input name="txtfirstname" type="text" /><br/>
+   Last Name :
+   <input name="txtlastname" type="text" /><br/>
+   Address :
+   <input name="txthouse" type="text" /><br/>
    Town :
-   <input name="txttown" type="text"  value="{$row['town']}" /><br/>
+   <input name="txttown" type="text" /><br/>
    County :
-   <input name="txtcounty" type="text"  value="{$row['county']}" /><br/>
+   <input name="txtcounty" type="text" /><br/>
    Country :
-   <input name="txtcountry" type="text"  value="{$row['country']}" /><br/>
+   <input name="txtcountry" type="text" /><br/>
    Postcode :
-   <input name="txtpostcode" type="text"  value="{$row['postcode']}" /><br/>
-   <input type="submit" value="Save" name="submit"/>
+   <input name="txtpostcode" type="text" /><br/>
+   <input type="submit" value="Add" name="submit"/>
    </form>
 
 EOD;
